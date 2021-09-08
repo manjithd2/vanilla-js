@@ -60,11 +60,16 @@ const pagination = (data) => {
 function pageUpdate (e) {
   console.log(this.value)
   currPage = this.value
+  buildPage(currPage)
   pageNos(parseInt(currPage))
 
 }
 
 const buildPage = (currPage) => {
+  console.log(document.querySelector("table"))
+  document.querySelector("table").remove()
+  document.querySelector("#render-table").appendChild(document.createElement("table"))
+  
   const Trimstart = (currPage - 1)* listItem
   const TrimEnd = Trimstart + listItem
   
@@ -91,13 +96,6 @@ const createButton = (i,dots) => {
   }
   return (b)
 }
-
-// const createDots = (i) => {
-//   var b = document.createElement('div')
-//   b.innerHTML = "..."
-//   b.className='btn-pno'
-//   return (b)
-// }
 
 const pageNos = (currPage) => {
     var ele = document.querySelector("#pagenos")
@@ -156,11 +154,9 @@ const pageNos = (currPage) => {
 const updateItems = (items) => {
   listItem = items
   numberOfPages = Math.ceil(numberOfItems/listItem)
-  console.log(document.querySelector("table"))
-  document.querySelector("table").remove()
-  document.querySelector("#render-table").appendChild(document.createElement("table"))
 
-  buildPage(1)
+
+  buildPage(currentPage)
   
 
 }
@@ -169,7 +165,7 @@ const callback = (data) => {
   apidata = data
   numberOfItems = apidata.length
   numberOfPages = Math.ceil(numberOfItems/listItem)
-  buildPage(1)
+  buildPage(currentPage)
 
   // renderTable(data);
 };
